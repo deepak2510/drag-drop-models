@@ -1,0 +1,110 @@
+*{
+    border : 0px;
+    margin : 0px;
+    padding : 0px;
+    box-sizing : border-box;
+}
+
+.left{
+    float : left;
+    display : inline-block;
+    padding : 10px;
+    background-color: #eee;
+    margin : 20px;
+}
+
+.left .elements {
+    list-style-type : none;
+    max-width : 320px;
+}
+
+.left .elements .element{
+    background-color:#fff;
+    margin : 10px;
+    padding : 10px;
+    max-width : 300px;
+    position : relative;
+    display : inline-block;
+    min-width : 300px;
+}
+
+.left .elements .element_image{
+    width : 40px;
+    height : 40px;
+    background-color : #9ff;
+    float : left;
+    margin-right : 10px;
+}
+
+.left .elements .place_cta{
+    position : relative;
+    float : right;
+    margin-top : 5px;
+
+}
+
+.right .modules{
+    list-style-type : none;
+}
+
+.right {
+    padding : 10px;
+    float : left;
+
+}
+
+.right .module{
+    position : relative;
+    background-color : #ddd;
+    margin : 10px;
+    padding : 10px;
+    width : 400px;
+    min-height : 200px;
+}
+
+.right .module:before{
+    content : 'Place elements here';
+    position : absolute;
+    left : 35%;
+    top : 50%;
+    color : #aaa;
+}
+
+.image2{
+    background-color: #aaf !important;
+}
+
+.image3{
+    background-color: #daa !important;
+}
+
+.left .elements {
+    list-style-type : none;
+    max-width : 320px;
+}
+
+.right .elements .element{
+    background-color:#fff;
+    margin : 10px;
+    margin-left : 0px;
+    padding : 10px;
+    max-width : 300px;
+    position : relative;
+    display : inline-block;
+    min-width : 300px;
+}
+
+.right .elements .element_image{
+    width : 40px;
+    height : 40px;
+    background-color : #9ff;
+    float : left;
+    margin-right : 10px;
+}
+
+.right .elements .place_cta{
+    position : relative;
+    float : right;
+    margin-top : 5px;
+
+}
