@@ -1,5 +1,4 @@
 *{
-    border : 0px;
     margin : 0px;
     padding : 0px;
     box-sizing : border-box;
@@ -11,6 +10,7 @@
     padding : 10px;
     background-color: #eee;
     margin : 20px;
+    min-width : 320px;
 }
 
 .left .elements {
@@ -39,8 +39,25 @@
 .left .elements .place_cta{
     position : relative;
     float : right;
-    margin-top : 5px;
+    margin-top : 13px;
+    margin-bottom : -8px;
+    font-size: 14px;
+    background-color: blue;
+    color: #fff;
+    padding : 4px;
+    border-radius : 3px;
 
+}
+
+.left .elements .place_cta:hover{
+
+    background-color: darkblue;
+
+
+}
+
+.left .elements .organizeButtons{
+    display : none;
 }
 
 .right .modules{
@@ -94,17 +111,94 @@
     min-width : 300px;
 }
 
+.element{
+    border : 1px solid #ccc;
+}
+
+.element:before{
+    content : '';
+    position : absolute;
+    width : 100%;
+    height : 30px;
+    background-color : #ccc;
+    bottom : 0px;
+    margin-left : -10px;
+}
 .right .elements .element_image{
     width : 40px;
     height : 40px;
     background-color : #9ff;
     float : left;
     margin-right : 10px;
+
 }
 
 .right .elements .place_cta{
     position : relative;
     float : right;
-    margin-top : 5px;
+    margin-top : 13px;
+    margin-bottom : -8px;
+    font-size: 14px;
+    background-color: blue;
+    color: #fff;
+    padding : 4px;
+    border-radius : 3px;
 
+}
+
+.right .elements .place_cta:hover{
+    background-color: darkgreen;
+
+}
+
+.right .elements .placeHere{
+    background-color:green;
+}
+
+.placingBegun{
+    background-color:#ddd !important;
+}
+
+@-webkit-keyframes example {
+    0%   {background-color:green;}
+    50% {background-color:transparent ;}
+    100% {background-color:green ;}
+}
+
+/* Standard syntax */
+@keyframes example {
+    0%   {background-color:green ;}
+    50% {background-color:transparent ;}
+    100% {background-color:green ;}
+}
+
+.pulsate{
+
+    -webkit-animation-name: example; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+}
+
+.up{
+    float: left;
+    margin-top: 13px;
+    z-index: 1000;
+    position: relative;
+    box-sizing: content-box;
+    padding: 3px;
+    margin-bottom: -8px;
+}
+
+.down{
+    float: left;
+    margin-top: 13px;
+    z-index: 1000;
+    position: relative;
+    box-sizing: content-box;
+    padding: 3px;
+    margin-bottom: -8px;
 }

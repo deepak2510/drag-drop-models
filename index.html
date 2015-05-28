@@ -1,29 +1,51 @@
 <html>
 <head>
     <link rel="stylesheet" href="style.css"/>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="jqsudo.js"></script>
 
 </head>
 <body>
 
 <div class="left">
     <ul class="elements">
-        <li class="element">
+        <li class="element" position="1">
             <div class="element_image image1"></div>
             <h3>Element Title</h3>
             <p>Element description long description Element description long </p>
-            <a href="#" class="place_cta">Click to place</a>
+            <div class="actionBar">
+                <div class="organizeButtons" currentModule="0">
+
+                <button class="up">Previous Module</button>
+                <button class="down">Next Module</button>
+                </div>
+                <a href="#" class="place_cta" placingbegun=false>Click to place</a>
+            </div>
+
         </li>
-        <li class="element">
+        <li class="element" position="2">
             <div class="element_image image2"></div>
             <h3>Element Title</h3>
             <p>Element description long description Element description long </p>
-            <a href="#" class="place_cta">Click to place</a>
+            <div class="actionBar">
+                <div class="organizeButtons" currentModule="0">
+                    <button class="up">Previous Module</button>
+                    <button class="down">Next Module</button>
+                </div>
+                <a href="#" class="place_cta" placingbegun=false>Click to place</a>
+            </div>
         </li>
-        <li class="element">
+        <li class="element" position="3">
             <div class="element_image image3"></div>
             <h3>Element Title</h3>
             <p>Element description long description Element description long </p>
-            <a href="#" class="place_cta">Click to place</a>
+            <div class="actionBar">
+                <div class="organizeButtons" currentModule="0">
+                    <button class="up">Previous Module</button>
+                    <button class="down">Next Module</button>
+                </div>
+                <a href="#" class="place_cta" placingbegun=false>Click to place</a>
+            </div>
         </li>
 
     </ul>
@@ -31,29 +53,32 @@
 
 <div class="right">
     <ul class="modules">
-        <li class="module droppable">
+        <li class="module droppable" position="1">
             <h2>Module Title</h2>
             <p>Module Description</p>
             <ul class="elements">
-                <li class="element">
-                    <div class="element_image image1"></div>
-                    <h3>Element Title</h3>
-                    <p>Element description long description Element description long </p>
-                    <a href="#" class="place_cta">Click to place</a>
-                </li>
 
 
             </ul>
         </li>
-        <li class="module droppable">
+        <li class="module droppable" position="2">
             <h2>Module Title</h2>
             <p>Module Description</p>
+            <ul class="elements">
+
+
+            </ul>
         </li>
-        <li class="module droppable">
+        <li class="module droppable" position="3">
             <h2>Module Title</h2>
             <p>Module Description</p>
+            <ul class="elements">
+
+
+            </ul>
         </li>
     </ul>
 </div>
+<script type="text/javascript" src="index.js"></script>
 </body>
 </html>
