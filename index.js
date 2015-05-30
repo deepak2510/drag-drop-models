@@ -4,9 +4,10 @@
 
 $(document).ready(function(){
 
+    totalModules = $('.module').length;
     $('.place_cta').attr('placingbegun', false)
     $('.place_cta').click(function(e){
-
+        e.stopPropagation();
         var elem = $(e.currentTarget);
 
         var placingBegun = elem.attr('placingbegun');
@@ -60,6 +61,7 @@ $(document).ready(function(){
         var position = elem.attr('position');
 
         var after = position-1;
+
         if(after<1){
             $('.left .elements').prepend(elemCopyLeft);
         } else {
@@ -70,16 +72,19 @@ $(document).ready(function(){
 
         elem.find('a').css('visibility','hidden');
         elem.css('zIndex',100);
-        elem.css('position','absolute');
+        elem.css('position','fixed');
 
         elem.css({
             'left':leftOffset.left,
             'top':leftOffset.top
         });
         elem.removeClass('placingBegun');
+
+
+
         elem.animate({
             'left' : elemCopyRight.offset().left - 10,
-            'top' : elemCopyRight.offset().top - 10,
+            'top' : elemCopyRight.offset().top - 10 - $(window).scrollTop(),
             'zIndex' : 100
         },800, function(){
             elem.remove();
@@ -104,15 +109,23 @@ $(document).ready(function(){
             var desiredModule = (Number) (currentModule) + 1;
             placeInModule(elemCopyRight, desiredModule);
         });
+        elemCopyRight.find('.up').click(function(){
+            var currentModule = elemCopyRight.find('.organizeButtons').attr('currentModule');
+            var desiredModule = (Number) (currentModule) - 1;
+            if(desiredModule < 1)
+                desiredModule = totalModules;
+            placeInModule(elemCopyRight, desiredModule);
+        });
 
-        elemCopyRight.find('a').click(function(){
+        elemCopyRight.find('a').click(function(e){
+            e.stopPropagation();
             elemCopyLeft.animate({
                 'height' : 0,
                 'margin' : 0,
                 'padding' : 0
             }, function(){
                 elemCopyLeft.hide();
-                elemCopyRight.find('a').text('Click to move')
+                elemCopyRight.find('a').hide().text('Click to move')
                 elemCopyRight.find('a').removeClass('pulsate');
                 placed = true;
             })
@@ -124,6 +137,8 @@ $(document).ready(function(){
     }
 
     function placeInModule(elem,mod_pos){
+
+        var position = elem.attr('position');
 
         var elemCopy = elem.clone();
 
@@ -144,12 +159,12 @@ $(document).ready(function(){
 
         elem.css({
             'left':initialOffset.left,
-            'top':initialOffset.top
+            'top':initialOffset.top - $(window).scrollTop()
         });
 
         elem.animate({
-            'left' : elemCopy.offset().left - 10,
-            'top' : elemCopy.offset().top - 10,
+            'left' : elemCopy.offset().left,
+            'top' : elemCopy.offset().top - 10 - $(window).scrollTop(),
             'zIndex' : 100
         },800, function(){
             elem.remove();
@@ -168,16 +183,39 @@ $(document).ready(function(){
         elemCopy.find('.down').click(function(){
             var currentModule = elemCopy.find('.organizeButtons').attr('currentModule');
             var desiredModule = (Number) (currentModule) + 1;
+            if(desiredModule > totalModules)
+            desiredModule = 1
             placeInModule(elemCopy, desiredModule);
         });
 
-        elemCopy.find('a').click(function(){
+        elemCopy.find('.up').click(function(){
+            var currentModule = elemCopy.find('.organizeButtons').attr('currentModule');
+            var desiredModule = (Number) (currentModule) - 1;
+            if(desiredModule < 1)
+                desiredModule = totalModules
+            placeInModule(elemCopy, desiredModule);
+        });
 
-                elemCopy.find('a').text('Click to move')
+        elemCopy.find('a').click(function(e){
+
+            e.stopPropagation();
+            var elemCopyLeft = $('.left .elements .element[position='+position+']');
+
+            elemCopyLeft.animate({
+                'height' : 0,
+                'margin' : 0,
+                'padding' : 0
+            }, function(){
+                elemCopyLeft.hide();
+                elemCopy.find('a').hide().text('Click to move')
                 elemCopy.find('a').removeClass('pulsate');
                 placed = true;
+            })
+
 
         })
+
+
     }
 
 });
