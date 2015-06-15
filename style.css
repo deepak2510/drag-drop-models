@@ -5,12 +5,22 @@
 }
 
 .left{
-    float : left;
-    display : inline-block;
-    padding : 10px;
+    position : fixed;
+    left : 0px;
+    top : 0px;
     background-color: #eee;
-    margin : 20px;
     min-width : 320px;
+    height : 100%;
+    overflow-y : scroll;
+    z-index : 1000;
+    overflow:visible;
+}
+
+.left .leftHeader{
+    position: relative;
+    background-color : #888;
+    color: #fff;
+    padding: 20px;
 }
 
 .left .elements {
@@ -66,7 +76,10 @@
 
 .right {
     padding : 10px;
-    float : left;
+    position : relative;
+    left : 330px;
+    top : 0px;
+
 
 }
 
@@ -79,13 +92,7 @@
     min-height : 200px;
 }
 
-.right .module:before{
-    content : 'Place elements here';
-    position : absolute;
-    left : 35%;
-    top : 50%;
-    color : #aaa;
-}
+
 
 .image2{
     background-color: #aaf !important;
@@ -109,21 +116,14 @@
     position : relative;
     display : inline-block;
     min-width : 300px;
+    z-index : 1002;
 }
 
 .element{
     border : 1px solid #ccc;
 }
 
-.element:before{
-    content : '';
-    position : absolute;
-    width : 100%;
-    height : 30px;
-    background-color : #ccc;
-    bottom : 0px;
-    margin-left : -10px;
-}
+
 .right .elements .element_image{
     width : 40px;
     height : 40px;
@@ -172,16 +172,6 @@
     100% {background-color:green ;}
 }
 
-.pulsate{
-
-    -webkit-animation-name: example; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
-    -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
-    animation-name: example;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-
-}
 
 .up{
     float: left;
@@ -201,4 +191,8 @@
     box-sizing: content-box;
     padding: 3px;
     margin-bottom: -8px;
+}
+
+.add-elements{
+    padding: 4px;
 }

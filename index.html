@@ -4,79 +4,136 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="jqsudo.js"></script>
 
+    <!--CDN link for the latest TweenMax-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+
 </head>
 <body>
 
-<div class="left">
+<div class="left module" module="0">
+    <div class="leftHeader">
+        Select one or more elements to place
+    </div>
     <ul class="elements">
-        <li class="element" position="1">
+        <li class="element" element="1">
+
+            <input type="checkbox" class="pull-right selectElement" element="1"/>
             <div class="element_image image1"></div>
             <h3>Element 1</h3>
             <p>Element description long description Element description long </p>
-            <div class="actionBar">
-                <div class="organizeButtons" currentModule="0">
-
-                <button class="up">&uarr; Module</button>
-                <button class="down">&darr; Module</button>
-                </div>
-                <a href="#" class="place_cta" placingbegun=false>Click to place</a>
-            </div>
 
         </li>
-        <li class="element" position="2">
-            <div class="element_image image2"></div>
+
+        <li class="element" element="2">
+
+            <input type="checkbox" class="pull-right selectElement" element="2"/>
+            <div class="element_image image1"></div>
             <h3>Element 2</h3>
             <p>Element description long description Element description long </p>
-            <div class="actionBar">
-                <div class="organizeButtons" currentModule="0">
-                    <button class="up">&uarr; Module</button>
-                    <button class="down">&darr; Module</button>
-                </div>
-                <a href="#" class="place_cta" placingbegun=false>Click to place</a>
-            </div>
+
         </li>
-        <li class="element" position="3">
-            <div class="element_image image3"></div>
+
+        <li class="element" element="3">
+
+            <input type="checkbox" class="pull-right selectElement" element="3"/>
+            <div class="element_image image1"></div>
             <h3>Element 3</h3>
             <p>Element description long description Element description long </p>
-            <div class="actionBar">
-                <div class="organizeButtons" currentModule="0">
-                    <button class="up">&uarr; Module</button>
-                    <button class="down">&darr; Module</button>
-                </div>
-                <a href="#" class="place_cta" placingbegun=false>Click to place</a>
-            </div>
+
         </li>
+
+        <li class="element" element="4">
+
+            <input type="checkbox" class="pull-right selectElement" element="4"/>
+            <div class="element_image image1"></div>
+            <h3>Element 4</h3>
+            <p>Element description long description Element description long </p>
+
+        </li>
+
+        <li class="element" element="5">
+
+            <input type="checkbox" class="pull-right selectElement" element="5"/>
+            <div class="element_image image1"></div>
+            <h3>Element 5</h3>
+            <p>Element description long description Element description long </p>
+
+        </li>
+
+
 
     </ul>
 </div>
 
 <div class="right">
     <ul class="modules">
-        <li class="module droppable" position="1">
+        <li class="module droppable" module="1">
+            <button class="pull-right add-elements" module="1">Add Elements</button>
+            <button class="pull-right add-elements" module="1">Edit Elements</button>
             <h2>Module 1</h2>
             <p>Module Description</p>
+
             <ul class="elements">
 
 
             </ul>
+
         </li>
-        <li class="module droppable" position="2">
+
+        <li class="module droppable" module="2">
+            <button class="pull-right add-elements" module="2">Add Elements</button>
+            <button class="pull-right add-elements" module="2">Edit Elements</button>
             <h2>Module 2</h2>
             <p>Module Description</p>
+
             <ul class="elements">
 
 
             </ul>
+
         </li>
-        <li class="module droppable" position="3">
+
+
+        <li class="module droppable" module="3">
+            <button class="pull-right add-elements" module="3">Add Elements</button>
+            <button class="pull-right add-elements" module="3">Edit Elements</button>
             <h2>Module 3</h2>
             <p>Module Description</p>
+
             <ul class="elements">
 
 
             </ul>
+
         </li>
+
+        <li class="module droppable" module="4">
+            <button class="pull-right add-elements" module="4">Add Elements</button>
+            <button class="pull-right add-elements" module="4">Edit Elements</button>
+            <h2>Module 4</h2>
+            <p>Module Description</p>
+
+            <ul class="elements">
+
+
+            </ul>
+
+        </li>
+
+        <!--<li class="module droppable" module="5">-->
+            <!--<button class="pull-right add-elements" module="5">Add Elements</button>-->
+            <!--<button class="pull-right add-elements" module="5">Edit Elements</button>-->
+            <!--<h2>Module 5</h2>-->
+            <!--<p>Module Description</p>-->
+
+            <!--<ul class="elements">-->
+
+
+            <!--</ul>-->
+
+        <!--</li>-->
+
+
     </ul>
 </div>
 <script type="text/javascript" src="index.js"></script>
