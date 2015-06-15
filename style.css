@@ -198,4 +198,5 @@
 
 .module:hover{
     outline : 1px solid #888;
+    opacity : 1 !important;
 }

@@ -41,6 +41,7 @@ $(document).ready(function(){
     function selectModule(module){
         selectedModule = module;
         // Fade out everything else
+        activateModule(module);
 
     }
 
@@ -128,5 +129,17 @@ $(document).ready(function(){
     function deactiveCheckboxes(){
         var boxes = $('.selectElement');
         TweenLite.to(boxes, 0.8, {scaleX : 0, scaleY : 0});
+    }
+
+    function activateModule(module){
+        //$('.module').css('opacity', 0.3);
+        TweenLite.to($('.module').not($('.module[module='+module+']')).not($('.module[module='+0+']')), 0.8, {opacity : 0.2});
+        $('.module[module='+module+']').css('opacity', 1);
+        $('.module[module='+0+']').css('opacity', 1);
+
+    }
+
+    function deactivateModule(module){
+        $('.module').css('opacity', 1);
     }
 });
