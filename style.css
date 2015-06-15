@@ -13,7 +13,6 @@
     height : 100%;
     overflow-y : scroll;
     z-index : 1000;
-    overflow:visible;
 }
 
 .left .leftHeader{
@@ -195,4 +194,8 @@
 
 .add-elements{
     padding: 4px;
+}
+
+.module:hover{
+    outline : 1px solid #888;
 }

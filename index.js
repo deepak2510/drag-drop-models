@@ -8,9 +8,12 @@ elementPool = 0;
 $(document).ready(function(){
 
 
+    deactiveCheckboxes();
+
     $('.add-elements').click(function(e){
         var module = $(e.currentTarget).attr('module');
         selectModule(module);
+        activateCheckboxes();
 
     });
 
@@ -79,7 +82,7 @@ $(document).ready(function(){
         var scrollTop = $(window).scrollTop();
         var elementCopy = element.clone();
 
-        to.find('.elements').append(elementCopy);
+        to.find('.elements').prepend(elementCopy);
 
         elementCopy.css('opacity',0);
 
@@ -115,5 +118,15 @@ $(document).ready(function(){
 
     function getModule(moduleId){
         return $('.module[module='+moduleId+']');
+    }
+
+    function activateCheckboxes(){
+        var boxes = $('.selectElement');
+        TweenLite.to(boxes, 0.8, {scaleX : 1, scaleY : 1, ease: "Bounce.easeOut"});
+    }
+
+    function deactiveCheckboxes(){
+        var boxes = $('.selectElement');
+        TweenLite.to(boxes, 0.8, {scaleX : 0, scaleY : 0});
     }
 });
