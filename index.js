@@ -17,6 +17,8 @@ $(document).ready(function(){
 
     });
 
+
+
     addSelectHandler();
 
     function addSelectHandler(){
@@ -78,26 +80,35 @@ $(document).ready(function(){
     function transferElement(elementNo, from, to, callback){
         var from = getModule(from);
         var to = getModule(to);
+
         var element = getElement(elementNo);
 
         var scrollTop = $(window).scrollTop();
+
         var elementCopy = element.clone();
 
         to.find('.elements').prepend(elementCopy);
 
         elementCopy.css('opacity',0);
 
-
         var destination = elementCopy.offset();
         var origin = element.offset();
+
+        console.log("DESTINATION", destination, "ORIGIN", origin);
         TweenLite.set(element, {position : 'fixed', margin : 0, left : origin.left, top : origin.top - scrollTop});
 
 
         var nextElement = element.next();
 
+        element.remove();
+
+        $('body').append(element);
+
+
         TweenLite.set(nextElement, {marginTop : element.css('height')});
 
         $('.left').css('overflow','visible');
+
         TweenLite.to(element, 0.6, {left : destination.left, top : destination.top - scrollTop, onComplete: function(){
 
             TweenLite.to(elementCopy, 0.5, {opacity : 1});
@@ -106,6 +117,7 @@ $(document).ready(function(){
 
             addSelectHandler();
             $('.left').css('overflow','scroll');
+            if(callback)
             callback();
         }});
 
@@ -133,13 +145,69 @@ $(document).ready(function(){
 
     function activateModule(module){
         //$('.module').css('opacity', 0.3);
+
+        var wH = $(window).height();
+
+
+        var mod = $('.module[module='+module+']');
+        var mod_offset = mod.offset();
+
         TweenLite.to($('.module').not($('.module[module='+module+']')).not($('.module[module='+0+']')), 0.8, {opacity : 0.2});
-        $('.module[module='+module+']').css('opacity', 1);
-        $('.module[module='+0+']').css('opacity', 1);
+        mod.css('opacity', 1);
+
+        var next = mod.next();
+
+        next.css('margin-top', mod.height() + 70);
+        TweenLite.set(mod, {position : 'fixed', 'zIndex': 1, left : mod_offset.left - 10, top : mod_offset.top - $(window).scrollTop()});
+
+
+        TweenLite.to(mod, 0.2,{scaleX : 0.9, scaleY : 0.9, onComplete: function(){
+            TweenLite.to(mod, 0.5, {top : 50, bottom : 50, scaleX : 1, scaleY : 1, backgroundColor : '#DEEBEF', onComplete: function(){
+                mod.addClass('no-transform');
+            }});
+
+        }});
+
+
+        mod.find('.add-elements').hide();
+        mod.find('.done-adding').show();
+        mod.addClass('activeModule');
+
+        mod.find('.done-adding').click(function(){
+            mod.removeClass('no-transform');
+            deactivateModule(module, mod_offset);
+        })
 
     }
 
-    function deactivateModule(module){
-        $('.module').css('opacity', 1);
+    function deactivateModule(module, originalOffset){
+
+
+        var mod = $('.module[module='+module+']');
+
+
+        mod.find('.add-elements').show();
+        mod.find('.done-adding').hide();
+
+        var next = mod.next();
+
+
+        next.css('margin-top', mod.height() + 70);
+
+        TweenLite.to(mod, 0.5, {left : originalOffset.left - 10, top : originalOffset.top - $(window).scrollTop(), backgroundColor : '#ddd', onComplete : function(){
+            TweenLite.set(mod, {position : 'relative', 'zIndex': 1, left : 0, top :0});
+            next.css('margin-top', 0);
+            mod.removeClass('activeModule');
+            TweenLite.to($('.module'), 0.8, {opacity : 1});
+
+        }});
+
+
+
+
+
+        deactiveCheckboxes();
+
+
     }
 });

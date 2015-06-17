@@ -6,7 +6,7 @@
 
 .left{
     position : fixed;
-    left : 0px;
+    left : 760px;
     top : 0px;
     background-color: #eee;
     min-width : 320px;
@@ -27,43 +27,8 @@
     max-width : 320px;
 }
 
-.left .elements .element{
-    background-color:#fff;
-    margin : 10px;
-    padding : 10px;
-    max-width : 300px;
-    position : relative;
-    display : inline-block;
-    min-width : 300px;
-}
-
-.left .elements .element_image{
-    width : 40px;
-    height : 40px;
-    background-color : #9ff;
-    float : left;
-    margin-right : 10px;
-}
-
-.left .elements .place_cta{
-    position : relative;
-    float : right;
-    margin-top : 13px;
-    margin-bottom : -8px;
-    font-size: 14px;
-    background-color: blue;
-    color: #fff;
-    padding : 4px;
-    border-radius : 3px;
-
-}
-
-.left .elements .place_cta:hover{
-
-    background-color: darkblue;
 
 
-}
 
 .left .elements .organizeButtons{
     display : none;
@@ -120,8 +85,33 @@
 
 .element{
     border : 1px solid #ccc;
+    background-color:#fff;
+    margin : 10px;
+    max-width : 300px;
+    position : relative;
+    display : inline-block;
+    min-width : 300px;
+    z-index: 5000;
+
 }
 
+.element .content{
+    padding : 10px;
+
+}
+
+.element .controls{
+    background-color : #ccc;
+    padding : 5px;
+}
+
+.element_image{
+    width : 40px;
+    height : 40px;
+    background-color : #9ff;
+    float : left;
+    margin-right : 10px;
+}
 
 .right .elements .element_image{
     width : 40px;
@@ -196,7 +186,21 @@
     padding: 4px;
 }
 
-.module:hover{
-    outline : 1px solid #888;
-    opacity : 1 !important;
+.done-adding{
+    padding : 4px;
+}
+
+
+.activeModule{
+    outline : 1px solid #888888;
+    overflow-y : scroll;
+    overflow-x : visible;
+    z-index: 100 !important;
+}
+
+.no-transform{
+    transform : none !important;
+}
+.hide{
+    display: none;
 }
