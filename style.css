@@ -18,6 +18,7 @@ body{
     height : 100%;
     overflow-y : scroll;
     z-index : 1000;
+    outline : 1px solid #bbb;
 }
 
 .left .leftHeader{
@@ -30,7 +31,7 @@ body{
     text-transform: uppercase;
     text-align: left;
     top : 0px;
-    width : 100%;
+    width : 320px;
     z-index: 5001;
 }
 
@@ -67,6 +68,7 @@ body{
     padding : 10px;
     width : 400px;
     min-height : 200px;
+    outline : 1px solid #bbb;
 }
 
 
@@ -197,4 +199,29 @@ body{
 
 .non-empty-module{
     background-color: #ddd !important;
+}
+
+.module-controls{
+    background : none;
+    padding : 4px;
+    border : 1px solid #bbb;
+    border-radius : 3px;
+    cursor : pointer;
+}
+
+.module-controls:hover{
+    background-color : #154795 !important;
+    color : white;
+    border : none;
+}
+
+.module:hover .module-controls{
+    border : 1px solid #154795;
+    margin-right : 5px;
+    margin-top : 5px;
+    background-color:#DEEBEF;
+}
+
+.pull-right{
+    float : right;
 }

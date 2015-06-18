@@ -216,6 +216,12 @@ $(document).ready(function(){
 
     });
 
+    $('.module').hover(function(){
+        TweenLite.to($(this).find('.module-controls'), 0.4, {scaleX : 1.2, scaleY : 1.2,  ease: "Bounce.easeOut"})
+    }, function(){
+        TweenLite.to($(this).find('.module-controls'), 0.2, {scaleX : 1, scaleY : 1})
+    })
+
 
 
     addSelectHandler();
@@ -267,7 +273,7 @@ $(document).ready(function(){
 
         transferElement(element, from, to, function(){
             $('.right').find('.controls').find('.helper-text').text("Remove this from " + " chapter " + selectedModule);
-            TweenLite.to(getModule(selectedModule).find('.controls'),0.7,{backgroundColor : '#BE0E0E'});
+            TweenLite.to(getModule(selectedModule).find('.controls'),0.7,{backgroundColor : '#9B3B3B'});
         });
 
     }
@@ -376,7 +382,7 @@ $(document).ready(function(){
             TweenLite.to(mod, 0.5, {top : 50, bottom : 50, scaleX : 1, scaleY : 1, backgroundColor : '#DEEBEF', onComplete: function(){
                 mod.addClass('no-transform');
                 TweenLite.to((getModule(0)).find('.controls'), 0.7, {backgroundColor : '#154795'});
-                TweenLite.to((getModule(selectedModule)).find('.controls'), 0.7, {backgroundColor : '#BE0E0E'});
+                TweenLite.to((getModule(selectedModule)).find('.controls'), 0.7, {backgroundColor : '#9B3B3B'});
                 TweenLite.to(getModule(selectedModule).add(getModule(0)).find('.controls').find('.helper-text'), 0.7, {opacity : 1, onComplete: function(){
                     activateCheckboxes();
                 }});
