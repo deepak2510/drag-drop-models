@@ -4,6 +4,10 @@
     box-sizing : border-box;
 }
 
+body{
+    overflow-x : hidden;
+}
+
 .left{
     position : fixed;
     left : 760px;
@@ -20,6 +24,7 @@
     background-color : #888;
     color: #fff;
     padding: 20px;
+    display: none;
 }
 
 .left .elements {
@@ -71,17 +76,6 @@
     max-width : 320px;
 }
 
-.right .elements .element{
-    background-color:#fff;
-    margin : 10px;
-    margin-left : 0px;
-    padding : 10px;
-    max-width : 300px;
-    position : relative;
-    display : inline-block;
-    min-width : 300px;
-    z-index : 1002;
-}
 
 .element{
     border : 1px solid #ccc;
@@ -101,10 +95,19 @@
 }
 
 .element .controls{
-    background-color : #ccc;
-    padding : 5px;
+    background-color : slategray;
+    padding : 0px;
+    height : 0;
+    opacity : 0;
+    color : #fff;
+    font-family: 'Helvetica';
+    font-size : 12px;
 }
 
+.right .element .controls{
+    background-color : darkred;
+
+}
 .element_image{
     width : 40px;
     height : 40px;
@@ -113,32 +116,7 @@
     margin-right : 10px;
 }
 
-.right .elements .element_image{
-    width : 40px;
-    height : 40px;
-    background-color : #9ff;
-    float : left;
-    margin-right : 10px;
 
-}
-
-.right .elements .place_cta{
-    position : relative;
-    float : right;
-    margin-top : 13px;
-    margin-bottom : -8px;
-    font-size: 14px;
-    background-color: blue;
-    color: #fff;
-    padding : 4px;
-    border-radius : 3px;
-
-}
-
-.right .elements .place_cta:hover{
-    background-color: darkgreen;
-
-}
 
 .right .elements .placeHere{
     background-color:green;
@@ -184,10 +162,12 @@
 
 .add-elements{
     padding: 4px;
+    float: right;
 }
 
 .done-adding{
     padding : 4px;
+    float: right;
 }
 
 

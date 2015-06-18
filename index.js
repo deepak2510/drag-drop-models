@@ -13,7 +13,7 @@ $(document).ready(function(){
     $('.add-elements').click(function(e){
         var module = $(e.currentTarget).attr('module');
         selectModule(module);
-        activateCheckboxes();
+
 
     });
 
@@ -65,7 +65,10 @@ $(document).ready(function(){
         var from = elementPool;
         var to = selectedModule;
         //pulsate(getElement(element));
-        transferElement(element, from, to);
+
+        transferElement(element, from, to, function(){
+            $('.right').find('.controls').find('.helper-text').text("Remove element from " + " module" + selectedModule);
+        });
 
     }
 
@@ -73,7 +76,11 @@ $(document).ready(function(){
         var from = selectedModule;
         var to = elementPool;
         $('.right').css('z-index', 1001);
-        transferElement(element, from, to, function(){$('.right').css('z-index', 0);});
+        transferElement(element, from, to, function(){
+            $('.right').css('z-index', 0);
+            $('.left').find('.controls').find('.helper-text').text("Place in " + " module " + selectedModule);
+
+        });
 
     }
 
@@ -164,6 +171,12 @@ $(document).ready(function(){
         TweenLite.to(mod, 0.2,{scaleX : 0.9, scaleY : 0.9, onComplete: function(){
             TweenLite.to(mod, 0.5, {top : 50, bottom : 50, scaleX : 1, scaleY : 1, backgroundColor : '#DEEBEF', onComplete: function(){
                 mod.addClass('no-transform');
+                TweenLite.to(getModule(selectedModule).add(getModule(0)).find('.controls'), 0.7, {height : 25, padding : 4, opacity : 1, onComplete: function(){
+                    activateCheckboxes();
+                }});
+
+                $('.left').find('.controls').find('.helper-text').text("Place in " + " module " + selectedModule);
+
             }});
 
         }});
@@ -182,6 +195,11 @@ $(document).ready(function(){
 
     function deactivateModule(module, originalOffset){
 
+        if(originalOffset == null){
+            originalOffset = {}
+            originalOffset.left = 0;
+            originalOffset.right = 0;
+        }
 
         var mod = $('.module[module='+module+']');
 
@@ -199,6 +217,8 @@ $(document).ready(function(){
             next.css('margin-top', 0);
             mod.removeClass('activeModule');
             TweenLite.to($('.module'), 0.8, {opacity : 1});
+
+            TweenLite.to($('.controls'), 0.7, {height : 0, padding : 0, opacity : 0});
 
         }});
 
