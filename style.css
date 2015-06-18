@@ -6,6 +6,7 @@
 
 body{
     overflow-x : hidden;
+    background-color: #fafafa;
 }
 
 .left{
@@ -20,16 +21,23 @@ body{
 }
 
 .left .leftHeader{
-    position: relative;
+    position: fixed;
     background-color : #888;
     color: #fff;
-    padding: 20px;
-    display: none;
+    padding: 10px;
+    font-size : 20px;
+    font-family: Helvetica;
+    text-transform: uppercase;
+    text-align: left;
+    top : 0px;
+    width : 100%;
+    z-index: 5001;
 }
 
 .left .elements {
     list-style-type : none;
     max-width : 320px;
+    margin-top : 50px;
 }
 
 
@@ -54,7 +62,7 @@ body{
 
 .right .module{
     position : relative;
-    background-color : #ddd;
+    background-color : #eee;
     margin : 10px;
     padding : 10px;
     width : 400px;
@@ -95,19 +103,21 @@ body{
 }
 
 .element .controls{
-    background-color : slategray;
-    padding : 0px;
-    height : 0;
-    opacity : 0;
+    background-color : #DEEBEF;
+    padding : 2px;
+    height : 18px;
+    opacity : 1;
     color : #fff;
     font-family: 'Helvetica';
     font-size : 12px;
 }
 
-.right .element .controls{
-    background-color : darkred;
-
+.helper-text {
+    opacity: 0;
 }
+.active-module-element{
+}
+
 .element_image{
     width : 40px;
     height : 40px;
@@ -183,4 +193,8 @@ body{
 }
 .hide{
     display: none;
+}
+
+.non-empty-module{
+    background-color: #ddd !important;
 }

@@ -4,9 +4,208 @@
 
 selectedModule = -1;
 elementPool = 0;
+elementIndex = 1;
+moduleIndex = 1;
+
+var data = {
+    modules : [
+        {
+            id : 1,
+            name : "Chapter 1",
+            description : "The Nature of Science and Technology"
+        },
+        {
+            id : 2,
+            name : "Chapter 2",
+            description : "The Atmosphere"
+        },
+        {
+            id : 3,
+            name : "Chapter 3",
+            description : "Weather Factors"
+        },
+        {
+            id : 4,
+            name : "Chapter 4",
+            description : "Weather Patterns"
+        },
+        {
+            id : 5,
+            name : "Chapter 5",
+            description : "Climate and Climate Change"
+        },
+        {
+            id : 6,
+            name : "Chapter 6",
+            description : "Plants"
+        },
+        {
+            id : 7,
+            name : "Chapter 7",
+            description : "Animals"
+        },
+        {
+            id : 8,
+            name : "Chapter 8",
+            description : "Bones, Muscles, and Skin"
+        },
+        {
+            id : 9,
+            name : "Chapter 9",
+            description : "Food and Digestion"
+        },
+        {
+            id : 10,
+            name : "Chapter 10",
+            description : "Circulation"
+        }
+
+    ],
+    elements : [
+        {
+            id : 1,
+            name : "The Nature of Inquiry"
+        },
+        {
+            id : 2,
+            name : "Technology and Society"
+        },
+        {
+            id : 3,
+            name : "Microwave Ovens"
+        },
+        {
+            id : 4,
+            name : "Atmosphere"
+        },
+        {
+            id : 5,
+            name : "Air Pressure"
+        },
+        {
+            id : 6,
+            name : "The Ozone Layer"
+        },
+        {
+            id : 7,
+            name : "Air Pollution"
+        },
+        {
+            id : 8,
+            name : "How Clean is the Air ?"
+        },
+        {
+            id : 9,
+            name : "Cars and Clean Air"
+        },
+        {
+            id : 10,
+            name : "Environment"
+        },
+        {
+            id : 11,
+            name : "Changes in Climate"
+        },
+        {
+            id : 12,
+            name : "Energy in the Earth's Atmosphere"
+        },
+        {
+            id : 13,
+            name : "Heat Transfer"
+        },
+        {
+            id : 14,
+            name : "Global Winds"
+        },
+        {
+            id : 15,
+            name : "Water Cycle"
+        },
+        {
+            id : 16,
+            name : "Precipitation"
+        },
+        {
+            id : 17,
+            name : "Drought in Your State"
+        },
+        {
+            id : 18,
+            name : "Weather Fronts"
+        },
+        {
+            id : 19,
+            name : "Thunder and Lightning"
+        },
+        {
+            id : 20,
+            name : "Today's Weather"
+        },
+        {
+            id : 21,
+            name : "Seasons"
+        },
+        {
+            id : 22,
+            name : "Climates of the World"
+        },
+        {
+            id : 23,
+            name : "Continental Drift"
+        },
+        {
+            id : 24,
+            name : "The Greenhouse Effect"
+        },
+        {
+            id : 25,
+            name : "Plant Cell Structures"
+        },
+        {
+            id : 26,
+            name : "Paper"
+        },
+        {
+            id : 27,
+            name : "Leaves"
+        },
+        {
+            id : 28,
+            name : "Gymnosperms"
+        },
+        {
+            id : 29,
+            name : "The Structure of a Flower"
+        },
+        {
+            id : 30,
+            name : "Plants as Food"
+        }
+
+    ]
+
+}
+
+function initialize(){
+    var elementTemplate = $('#element-template').html();
+    var moduleTemplate = $('#module-template').html();
+
+
+    var elems = Mustache.render(elementTemplate, {data : data});
+    var mods = Mustache.render(moduleTemplate, {data : data});
+
+    console.log(elems);
+    $('.elements-container').html(elems);
+    $('.modules-container').html(mods);
+
+
+}
 
 $(document).ready(function(){
 
+
+    initialize();
 
     deactiveCheckboxes();
 
@@ -67,7 +266,8 @@ $(document).ready(function(){
         //pulsate(getElement(element));
 
         transferElement(element, from, to, function(){
-            $('.right').find('.controls').find('.helper-text').text("Remove element from " + " module" + selectedModule);
+            $('.right').find('.controls').find('.helper-text').text("Remove this from " + " chapter " + selectedModule);
+            TweenLite.to(getModule(selectedModule).find('.controls'),0.7,{backgroundColor : '#BE0E0E'});
         });
 
     }
@@ -78,8 +278,8 @@ $(document).ready(function(){
         $('.right').css('z-index', 1001);
         transferElement(element, from, to, function(){
             $('.right').css('z-index', 0);
-            $('.left').find('.controls').find('.helper-text').text("Place in " + " module " + selectedModule);
-
+            $('.left').find('.controls').find('.helper-text').text("Add to " + " chapter " + selectedModule);
+            TweenLite.to(getModule(0).find('.controls'),0.7,{backgroundColor : '#154795'});
         });
 
     }
@@ -114,7 +314,6 @@ $(document).ready(function(){
 
         TweenLite.set(nextElement, {marginTop : element.css('height')});
 
-        $('.left').css('overflow','visible');
 
         TweenLite.to(element, 0.6, {left : destination.left, top : destination.top - scrollTop, onComplete: function(){
 
@@ -143,6 +342,7 @@ $(document).ready(function(){
     function activateCheckboxes(){
         var boxes = $('.selectElement');
         TweenLite.to(boxes, 0.8, {scaleX : 1, scaleY : 1, ease: "Bounce.easeOut"});
+
     }
 
     function deactiveCheckboxes(){
@@ -159,6 +359,10 @@ $(document).ready(function(){
         var mod = $('.module[module='+module+']');
         var mod_offset = mod.offset();
 
+
+
+        mod.find('.element').find('.controls').addClass('active-module-element');
+
         TweenLite.to($('.module').not($('.module[module='+module+']')).not($('.module[module='+0+']')), 0.8, {opacity : 0.2});
         mod.css('opacity', 1);
 
@@ -171,11 +375,13 @@ $(document).ready(function(){
         TweenLite.to(mod, 0.2,{scaleX : 0.9, scaleY : 0.9, onComplete: function(){
             TweenLite.to(mod, 0.5, {top : 50, bottom : 50, scaleX : 1, scaleY : 1, backgroundColor : '#DEEBEF', onComplete: function(){
                 mod.addClass('no-transform');
-                TweenLite.to(getModule(selectedModule).add(getModule(0)).find('.controls'), 0.7, {height : 25, padding : 4, opacity : 1, onComplete: function(){
+                TweenLite.to((getModule(0)).find('.controls'), 0.7, {backgroundColor : '#154795'});
+                TweenLite.to((getModule(selectedModule)).find('.controls'), 0.7, {backgroundColor : '#BE0E0E'});
+                TweenLite.to(getModule(selectedModule).add(getModule(0)).find('.controls').find('.helper-text'), 0.7, {opacity : 1, onComplete: function(){
                     activateCheckboxes();
                 }});
 
-                $('.left').find('.controls').find('.helper-text').text("Place in " + " module " + selectedModule);
+                $('.left').find('.controls').find('.helper-text').text("Add to " + " chapter " + selectedModule);
 
             }});
 
@@ -190,6 +396,11 @@ $(document).ready(function(){
             mod.removeClass('no-transform');
             deactivateModule(module, mod_offset);
         })
+
+
+
+        mod.removeClass('non-empty-module');
+        $('body').css('overflow','hidden');
 
     }
 
@@ -212,22 +423,34 @@ $(document).ready(function(){
 
         next.css('margin-top', mod.height() + 70);
 
-        TweenLite.to(mod, 0.5, {left : originalOffset.left - 10, top : originalOffset.top - $(window).scrollTop(), backgroundColor : '#ddd', onComplete : function(){
+        TweenLite.to(mod, 0.5, {left : originalOffset.left - 10, top : originalOffset.top - $(window).scrollTop(), backgroundColor : '#eee', onComplete : function(){
             TweenLite.set(mod, {position : 'relative', 'zIndex': 1, left : 0, top :0});
             next.css('margin-top', 0);
             mod.removeClass('activeModule');
             TweenLite.to($('.module'), 0.8, {opacity : 1});
 
-            TweenLite.to($('.controls'), 0.7, {height : 0, padding : 0, opacity : 0});
+            TweenLite.to($('.controls'),0.7,{backgroundColor : '#DEEBEF'});
+            TweenLite.to($('.controls').find('.helper-text'), 0.7, {opacity : 0});
 
         }});
 
 
+        var containsChildren = mod.find('.elements').children().length > 0;
 
+        mod.find('.add-elements').text("Add Contents")
+        if(containsChildren){
+            mod.addClass('non-empty-module');
+
+            mod.find('.add-elements').text("Edit Contents")
+        }
+
+
+        mod.find('.element').find('.controls').removeClass('active-module-element');
 
 
         deactiveCheckboxes();
 
 
+        $('body').css('overflow','scroll');
     }
 });

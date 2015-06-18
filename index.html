@@ -4,309 +4,70 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="jqsudo.js"></script>
 
+    <script type="text/javascript" src="mustache.js"></script>
     <!--CDN link for the latest TweenMax-->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 
 </head>
 
+<script type="text/x-handlebars-template" id="module-template">
+
+    <ul class="modules">
+        {{#data.modules}}
+        <li class="module droppable" module={{id}}>
+            <button class="pull-right add-elements" module={{id}}>Add Contents</button>
+            <button class="pull-right done-adding hide" module={{id}}>Finish</button>
+            <h2>{{name}}</h2>
+            <p>{{description}}</p>
+
+            <ul class="elements">
+
+
+            </ul>
+
+        </li>
+        {{/data.modules}}
+    </ul>
+
+</script>
+
+<script type="text/x-handlebars-template" id="element-template">
+
+    <ul class="elements">
+        {{#data.elements}}
+    <li class="element" element="{{id}}">
+
+        <div class="controls">
+            <input type="checkbox" class="selectElement" element="{{id}}" id="{{id}}"/> <label for="{{id}}" class="helper-text"> Select element </label>
+        </div>
+
+        <div class="content">
+
+            <p class="price pull-right">$4.99</p>
+            <h3>{{name}}</h3>
+            <p>{{From : Pearson}} </p>
+            <p>By : Jennifer Lame / Glenna Young</p>
+
+
+        </div>
+    </li>
+        {{/data.elements}}
+    </ul>
+
+</script>
 
 <body>
 
 <div class="left module" module="0">
     <div class="leftHeader">
-        Select one or more elements to place
+        Contents
     </div>
-    <ul class="elements">
-        <li class="element" element="1">
 
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="1" id="element1"/> <label for="element1" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 1</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="2">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="2" id="element2"/> <label for="element2" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 2</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-
-        <li class="element" element="3">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="3" id="element3"/> <label for="element3" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 3</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="4">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="4" id="element4"/> <label for="element4" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 4</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="5">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="5" id="element5"/> <label for="element5" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 5</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-
-        <li class="element" element="6">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="6" id="element6"/> <label for="element6" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 6</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="7">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="7" id="element7"/> <label for="element7" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 7</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="8">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="8" id="element8"/> <label for="element8" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 8</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-
-        <li class="element" element="9">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="9" id="element9"/> <label for="element9" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 9</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="10">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="10" id="element10"/> <label for="element10" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 10</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="11">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="11" id="element11"/> <label for="element11" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 11</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-
-        <li class="element" element="12">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="12" id="element12"/> <label for="element12" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 12</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="13">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="13" id="element13"/> <label for="element13" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 13</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-        <li class="element" element="14">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="14" id="element14"/> <label for="element14" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 14</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-
-        <li class="element" element="15">
-
-            <div class="controls">
-
-                <input type="checkbox" class="selectElement" element="15" id="element15"/> <label for="element15" class="helper-text"> Select element </label>
-            </div>
-
-            <div class="content">
-                <div class="element_image image1"></div>
-                <h3>Element 15</h3>
-                <p>Element description long description Element description long </p>
-            </div>
-        </li>
-
-
-
-    </ul>
+    <div class="elements-container"></div>
 </div>
 
 <div class="right">
-    <ul class="modules">
-        <li class="module droppable" module="1">
-            <button class="pull-right add-elements" module="1">Add Elements</button>
-            <button class="pull-right done-adding hide" module="3">Finish</button>
-            <h2>Module 1</h2>
-            <p>Module Description</p>
-
-            <ul class="elements">
-
-
-            </ul>
-
-        </li>
-
-        <li class="module droppable" module="2">
-            <button class="pull-right add-elements" module="2">Add Elements</button>
-            <button class="pull-right done-adding hide" module="3">Finish</button>
-            <h2>Module 2</h2>
-            <p>Module Description</p>
-
-            <ul class="elements">
-
-
-            </ul>
-
-        </li>
-
-
-        <li class="module droppable" module="3">
-            <button class="pull-right add-elements" module="3">Add Elements</button>
-            <button class="pull-right done-adding hide" module="3">Finish</button>
-            <h2>Module 3</h2>
-            <p>Module Description</p>
-
-            <ul class="elements">
-
-
-            </ul>
-
-        </li>
-
-        <li class="module droppable" module="4">
-            <button class="pull-right add-elements" module="4">Add Elements</button>
-            <button class="pull-right done-adding hide" module="3">Finish</button>
-            <h2>Module 4</h2>
-            <p>Module Description</p>
-
-            <ul class="elements">
-
-
-            </ul>
-
-        </li>
-
-        <li class="module droppable" module="5">
-            <button class="pull-right add-elements" module="5">Add Elements</button>
-            <button class="pull-right done-adding hide" module="3">Finish</button>
-            <h2>Module 5</h2>
-            <p>Module Description</p>
-
-            <ul class="elements">
-
-
-            </ul>
-
-        </li>
-
-
-    </ul>
+    <div class="modules-container"></div>
 </div>
 <script type="text/javascript" src="index.js"></script>
 </body>
