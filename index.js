@@ -199,6 +199,9 @@ function initialize(){
     $('.elements-container').html(elems);
     $('.modules-container').html(mods);
 
+    $('.leftHeader').css('left',$('.left').css('left'));
+
+
 
 }
 
@@ -216,9 +219,11 @@ $(document).ready(function(){
 
     });
 
-    $('.module').hover(function(){
+    $('.module').not(getModule(0)).hover(function(){
+        //TweenLite.to($(this),0.1,{scaleX : 1.01, scaleY:1.01});
         TweenLite.to($(this).find('.module-controls'), 0.4, {scaleX : 1.2, scaleY : 1.2,  ease: "Bounce.easeOut"})
     }, function(){
+        //TweenLite.to($(this),0.2,{scaleX : 1, scaleY:1});
         TweenLite.to($(this).find('.module-controls'), 0.2, {scaleX : 1, scaleY : 1})
     })
 
@@ -247,6 +252,7 @@ $(document).ready(function(){
 
     function selectModule(module){
         selectedModule = module;
+
         // Fade out everything else
         activateModule(module);
 

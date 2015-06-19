@@ -17,7 +17,7 @@
         <li class="module droppable" module={{id}}>
             <button class="pull-right add-elements module-controls" module={{id}}>Add Contents</button>
             <button class="pull-right done-adding hide module-controls" module={{id}}>Finish</button>
-            <h2>{{name}}</h2>
+            <h2 class="moduleName">{{name}}</h2>
             <p>{{description}}</p>
 
             <ul class="elements">
@@ -44,7 +44,7 @@
         <div class="content">
 
             <p class="price pull-right">$4.99</p>
-            <h3>{{name}}</h3>
+            <h3 class="elementName">{{name}}</h3>
             <p>{{From : Pearson}} </p>
             <p>By : Jennifer Lame / Glenna Young</p>
 
@@ -58,10 +58,11 @@
 
 <body>
 
+<div class="leftHeader">
+    Contents
+</div>
+
 <div class="left module" module="0">
-    <div class="leftHeader">
-        Contents
-    </div>
 
     <div class="elements-container"></div>
 </div>
