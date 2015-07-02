@@ -15,8 +15,6 @@
     <ul class="modules">
         {{#data.modules}}
         <li class="module droppable" module={{id}}>
-            <button class="pull-right add-elements module-controls" module={{id}}>Add Contents</button>
-            <button class="pull-right done-adding hide module-controls" module={{id}}>Finish</button>
             <h2 class="moduleName">{{name}}</h2>
             <p>{{description}}</p>
 
@@ -28,6 +26,14 @@
         </li>
         {{/data.modules}}
     </ul>
+
+</script>
+
+<script type="text/x-handlebars-template" id="placeholder-template">
+
+    <li class="placeholder">
+        <span class="drop-here">Drop Here</span>
+    </li>
 
 </script>
 
@@ -60,6 +66,7 @@
 
 <div class="leftHeader">
     Contents
+    <button class="module-controls pick-control pull-right">Pick</button>
 </div>
 
 <div class="left module" module="0">

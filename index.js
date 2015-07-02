@@ -6,7 +6,17 @@ selectedModule = -1;
 elementPool = 0;
 elementIndex = 1;
 moduleIndex = 1;
+tempElementStore = [];
+pickModeOn = false;
+placeholderTemplate = "";
 
+Array.prototype.remove = function(element){
+    var index = this.indexOf(element);
+    if(index != -1){
+        return this.splice(index,1)[0];
+    }
+    return -1;
+}
 var data = {
     modules : [
         {
@@ -190,7 +200,7 @@ var data = {
 function initialize(){
     var elementTemplate = $('#element-template').html();
     var moduleTemplate = $('#module-template').html();
-
+    placeholderTemplate = $('#placeholder-template').html();
 
     var elems = Mustache.render(elementTemplate, {data : data});
     var mods = Mustache.render(moduleTemplate, {data : data});
@@ -210,7 +220,7 @@ $(document).ready(function(){
 
     initialize();
 
-    deactiveCheckboxes();
+    activateCheckboxes();
 
     $('.add-elements').click(function(e){
         var module = $(e.currentTarget).attr('module');
@@ -240,11 +250,23 @@ $(document).ready(function(){
             var element = $(e.currentTarget).attr('element');
 
             if(checked){
-                placeElementInSelectedModule(element);
-            } else {
+                //placeElementInSelectedModule(element);
+                tempElementStore.push(element);
+                activatePlaceholderLinesForModules($('.module').not(getModule(0)));
+                pickModeOn = true;
 
-                placeElementBack(element);
+
+            } else {
+                tempElementStore.remove(element);
+                //placeElementBack(element);
+                if(tempElementStore.length == 0) {
+                    pickModeOn = false;
+                    deactivatePlaceholderLinesForModules($('.module').not(getModule(0)));
+
+                }
             }
+
+            showGlobalPickButton(tempElementStore.length);
 
         });
     }
@@ -252,7 +274,6 @@ $(document).ready(function(){
 
     function selectModule(module){
         selectedModule = module;
-
         // Fade out everything else
         activateModule(module);
 
@@ -362,107 +383,91 @@ $(document).ready(function(){
         TweenLite.to(boxes, 0.8, {scaleX : 0, scaleY : 0});
     }
 
-    function activateModule(module){
-        //$('.module').css('opacity', 0.3);
+    function untickCheckboxes(){
+        var boxes = $('.selectElement');
+        boxes.prop("checked", false);
+        tempElementStore = [];
+    }
 
-        var wH = $(window).height();
+    function showGlobalPickButton(howMany){
+        var pickControl = $('.pick-control');
+        pickControl.show();
+        TweenLite.to(pickControl,0,{scaleX : 0.8, scaleY : 0.9});
+        TweenLite.to(pickControl, 0.8, {scaleX : 1, scaleY : 1, ease: "Bounce.easeOut"});
 
+        if(howMany <= 0)
+            howMany = ""
+        if(howMany > 1)
+            pickControl.text("Picked " + howMany + " elements");
+        else
+            pickControl.text("Picked " + howMany + " element");
+    }
 
-        var mod = $('.module[module='+module+']');
-        var mod_offset = mod.offset();
+    function activatePlaceholderLines(moduleId){
 
+        var placeholder = $(placeholderTemplate);
 
-
-        mod.find('.element').find('.controls').addClass('active-module-element');
-
-        TweenLite.to($('.module').not($('.module[module='+module+']')).not($('.module[module='+0+']')), 0.8, {opacity : 0.2});
-        mod.css('opacity', 1);
-
-        var next = mod.next();
-
-        next.css('margin-top', mod.height() + 70);
-        TweenLite.set(mod, {position : 'fixed', 'zIndex': 1, left : mod_offset.left - 10, top : mod_offset.top - $(window).scrollTop()});
-
-
-        TweenLite.to(mod, 0.2,{scaleX : 0.9, scaleY : 0.9, onComplete: function(){
-            TweenLite.to(mod, 0.5, {top : 50, bottom : 50, scaleX : 1, scaleY : 1, backgroundColor : '#DEEBEF', onComplete: function(){
-                mod.addClass('no-transform');
-                TweenLite.to((getModule(0)).find('.controls'), 0.7, {backgroundColor : '#154795'});
-                TweenLite.to((getModule(selectedModule)).find('.controls'), 0.7, {backgroundColor : '#9B3B3B'});
-                TweenLite.to(getModule(selectedModule).add(getModule(0)).find('.controls').find('.helper-text'), 0.7, {opacity : 1, onComplete: function(){
-                    activateCheckboxes();
-                }});
-
-                $('.left').find('.controls').find('.helper-text').text("Add to " + " chapter " + selectedModule);
-
-            }});
-
-        }});
+        var module = getModule(moduleId);
+        var elements = module.find('.element');
+        if(elements.length == 0){
+            var placeholder = $(placeholderTemplate);
+            attachClickListenerToPlaceholder(placeholder);
+            module.find('.elements').prepend(placeholder);
+        }
 
 
-        mod.find('.add-elements').hide();
-        mod.find('.done-adding').show();
-        mod.addClass('activeModule');
+        module.find('.element').each(function(index, element){
+            //placeholder = $(placeholderTemplate).attr(moduleId);
+            var placeholder = $(placeholderTemplate);
+            attachClickListenerToPlaceholder(placeholder);
+            $(element).after(placeholder);
 
-        mod.find('.done-adding').click(function(){
-            mod.removeClass('no-transform');
-            deactivateModule(module, mod_offset);
+        });
+
+    }
+
+    function getTempElementStore(){
+        var elements = [];
+        tempElementStore.forEach(function(e, i){
+            elements.push(getElement(e));
         })
 
+        return elements;
+    }
 
+    function attachClickListenerToPlaceholder(placeholder){
+        $(placeholder).click(function(){
+            $(this).replaceWith(getTempElementStore());
+            deactivatePlaceholderLinesForModules($('.module').not(getModule(0)));
+            untickCheckboxes();
+        });
+    }
 
-        mod.removeClass('non-empty-module');
-        $('body').css('overflow','hidden');
+    function deactivatePlaceholderLines(moduleId){
+        var module = getModule(moduleId);
+
+        var elements = module.find('.element');
+
+        module.find('.placeholder').remove();
+
 
     }
 
-    function deactivateModule(module, originalOffset){
-
-        if(originalOffset == null){
-            originalOffset = {}
-            originalOffset.left = 0;
-            originalOffset.right = 0;
-        }
-
-        var mod = $('.module[module='+module+']');
-
-
-        mod.find('.add-elements').show();
-        mod.find('.done-adding').hide();
-
-        var next = mod.next();
-
-
-        next.css('margin-top', mod.height() + 70);
-
-        TweenLite.to(mod, 0.5, {left : originalOffset.left - 10, top : originalOffset.top - $(window).scrollTop(), backgroundColor : '#eee', onComplete : function(){
-            TweenLite.set(mod, {position : 'relative', 'zIndex': 1, left : 0, top :0});
-            next.css('margin-top', 0);
-            mod.removeClass('activeModule');
-            TweenLite.to($('.module'), 0.8, {opacity : 1});
-
-            TweenLite.to($('.controls'),0.7,{backgroundColor : '#DEEBEF'});
-            TweenLite.to($('.controls').find('.helper-text'), 0.7, {opacity : 0});
-
-        }});
-
-
-        var containsChildren = mod.find('.elements').children().length > 0;
-
-        mod.find('.add-elements').text("Add Contents")
-        if(containsChildren){
-            mod.addClass('non-empty-module');
-
-            mod.find('.add-elements').text("Edit Contents")
-        }
-
-
-        mod.find('.element').find('.controls').removeClass('active-module-element');
-
-
-        deactiveCheckboxes();
-
-
-        $('body').css('overflow','scroll');
+    function activatePlaceholderLinesForModules(modules){
+        modules.each(function(index, element){
+            var moduleId = $(element).attr('module');
+            deactivatePlaceholderLines(moduleId);
+            activatePlaceholderLines(moduleId);
+        });
     }
+
+    function deactivatePlaceholderLinesForModules(modules){
+        modules.each(function(index, element){
+            var moduleId = $(element).attr('module');
+            deactivatePlaceholderLines(moduleId);
+        });
+    }
+
+
+
 });

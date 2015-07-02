@@ -13,7 +13,7 @@ body{
 
 .left{
     position : fixed;
-    left : 760px;
+    left : 0px;
     top : 0px;
     background-color: #eee;
     min-width : 320px;
@@ -27,16 +27,16 @@ body{
     position: fixed;
     background-color: #0A2B5F;
     color: #fff;
-    padding: 10px;
+    padding: 8px;
     font-size: 14px;
     font-family: Helvetica;
     text-transform: uppercase;
-    text-align: center;
     top: 0px;
     width: 320px;
     z-index: 5001;
     border-bottom: 1px solid #666;
-    letter-spacing: 3px
+    letter-spacing: 3px;
+    line-height: 29px;
 }
 
 .left .elements {
@@ -71,7 +71,6 @@ body{
     margin : 10px;
     padding : 10px;
     width : 400px;
-    min-height : 200px;
     outline : 1px solid #bbb;
 }
 
@@ -227,7 +226,12 @@ body{
 .module-controls:hover{
     background-color : #154795 !important;
     color : white;
-    border : none;
+}
+
+.pick-control{
+    color : #fff;
+    font-size : 16px;
+    display : none;
 }
 
 .module:hover .module-controls{
@@ -243,4 +247,27 @@ body{
 
 .moduleName{
     font-size:18px;
+}
+.placeholder{
+    min-height : 4px;
+    width : 100%;
+    background-color : #aaa;
+    list-style-type : none;
+}
+
+.placeholder:hover{
+    background-color : #154795;
+    cursor : pointer;
+}
+
+.module:hover .placeholder{
+    background-color : green;
+}
+
+.drop-here{
+    display : none;
+}
+
+.placeholder:hover .drop-here{
+    display : block;
 }
