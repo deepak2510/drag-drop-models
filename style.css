@@ -28,13 +28,17 @@ body{
     background-color: #0A2B5F;
     color: #fff;
     padding: 8px;
-    font-size: 14px;
-    font-family: Helvetica;
-    text-transform: uppercase;
     top: 0px;
     width: 320px;
     z-index: 5001;
     border-bottom: 1px solid #666;
+
+}
+
+.leftHeader .heading{
+    font-size: 14px;
+    font-family: Helvetica;
+    text-transform: uppercase;
     letter-spacing: 3px;
     line-height: 29px;
 }
@@ -244,8 +248,9 @@ body{
 
 .pick-control{
     color : #fff;
-    font-size : 16px;
+    font-size : 14px;
     display : none;
+    margin-top: 5px;
 }
 
 .module:hover .module-controls{
@@ -264,16 +269,16 @@ body{
 }
 .placeholder{
     min-height : 4px;
-    width : 90%;
+    width : 80%;
     /*background-color : #aaa;*/
     list-style-type : none;
-    margin-left: 0px;
+    margin-left: 30px;
     background: linear-gradient(284deg, #154795, #D8E4F8, #154795);
     background-size: 400% 400%;
 
-    -webkit-animation: AnimationName 2s ease;
-    -moz-animation: AnimationName 2s ease;
-    animation: AnimationName 2s ease;
+    -webkit-animation: AnimationName 2s ease infinite;
+    -moz-animation: AnimationName 2s ease infinite;
+    animation: AnimationName 2s ease infinite;
 }
 
 .placeholder:hover{
@@ -296,15 +301,16 @@ body{
 }
 
 @-webkit-keyframes AnimationName {
-    0%{background-position:0% 78%}
-    100%{background-position:100% 23%}
+    100%{background-position:0% 78%}
+    0%{background-position:100% 23%}
 }
 @-moz-keyframes AnimationName {
-    0%{background-position:0% 78%}
-    100%{background-position:100% 23%}
+    100%{background-position:0% 78%}
+    0%{background-position:100% 23%}
 
 }
 @keyframes AnimationName {
-    0%{background-position:0% 78%}
-    100%{background-position:100% 23%}
+    0%{background-position:100% 23%}
+    100%{background-position:0% 78%}
+
 }

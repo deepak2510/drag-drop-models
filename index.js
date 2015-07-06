@@ -231,10 +231,12 @@ $(document).ready(function(){
 
     $('.module').not(getModule(0)).hover(function(){
         //TweenLite.to($(this),0.1,{scaleX : 1.01, scaleY:1.01});
-        TweenLite.to($(this).find('.module-controls'), 0.4, {scaleX : 1.2, scaleY : 1.2,  ease: "Bounce.easeOut"})
+        if(pickModeOn)
+        TweenLite.to($(this).find('.placeholder'), 0.4, {scaleX : 1.2, scaleY : 1.2, marginTop:10,  ease: "Bounce.easeOut"})
+
     }, function(){
         //TweenLite.to($(this),0.2,{scaleX : 1, scaleY:1});
-        TweenLite.to($(this).find('.module-controls'), 0.2, {scaleX : 1, scaleY : 1})
+        TweenLite.to($(this).find('.placeholder'), 0.2, {scaleX : 1, scaleY : 1, marginTop : 0})
     })
 
 
@@ -289,7 +291,7 @@ $(document).ready(function(){
 
 
 
-            showGlobalPickButton(tempElementStore.length);
+            manageGlobalPickButton(tempElementStore.length);
 
         });
     }
@@ -425,14 +427,17 @@ $(document).ready(function(){
         tempElementStore = [];
     }
 
-    function showGlobalPickButton(howMany){
+    function manageGlobalPickButton(howMany){
         var pickControl = $('.pick-control');
         pickControl.show();
         TweenLite.to(pickControl,0,{scaleX : 0.8, scaleY : 0.9});
         TweenLite.to(pickControl, 0.8, {scaleX : 1, scaleY : 1, ease: "Bounce.easeOut"});
 
-        if(howMany <= 0)
+        if(howMany <= 0) {
             howMany = ""
+            pickControl.hide();
+            return;
+        }
         if(howMany > 1)
             pickControl.text("Picked " + howMany + " elements");
         else
@@ -486,6 +491,7 @@ $(document).ready(function(){
             deactivatePlaceholderLinesForModules($('.module').not(getModule(0)));
             pickModeOn = false;
             untickCheckboxes();
+            manageGlobalPickButton(0)
         });
     }
 
