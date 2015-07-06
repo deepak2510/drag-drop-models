@@ -48,8 +48,22 @@ body{
 
 
 
-.left .elements .organizeButtons{
+.left .elements .removeButton{
     display : none;
+}
+
+.removeButton{
+    width : 14px;
+    height : 14px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: indianred;
+    padding-left : 4px;
+}
+
+.removeButton:hover{
+    background: red;
 }
 
 .right .modules{
@@ -250,18 +264,27 @@ body{
 }
 .placeholder{
     min-height : 4px;
-    width : 100%;
-    background-color : #aaa;
+    width : 90%;
+    /*background-color : #aaa;*/
     list-style-type : none;
+    margin-left: 0px;
+    background: linear-gradient(284deg, #154795, #D8E4F8, #154795);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 2s ease;
+    -moz-animation: AnimationName 2s ease;
+    animation: AnimationName 2s ease;
 }
 
 .placeholder:hover{
-    background-color : #154795;
+    background-color : #154795 !important;
     cursor : pointer;
+    color : white;
+    padding : 10px;
 }
 
 .module:hover .placeholder{
-    background-color : green;
+    background-color : #154795;
 }
 
 .drop-here{
@@ -270,4 +293,18 @@ body{
 
 .placeholder:hover .drop-here{
     display : block;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 78%}
+    100%{background-position:100% 23%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 78%}
+    100%{background-position:100% 23%}
+
+}
+@keyframes AnimationName {
+    0%{background-position:0% 78%}
+    100%{background-position:100% 23%}
 }

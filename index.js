@@ -243,7 +243,27 @@ $(document).ready(function(){
 
     function addSelectHandler(){
 
-        $('.selectElement').unbind('click');
+        $('.selectElement').unbind();
+        $('.removeButton').unbind();
+
+        $('.removeButton').click(function(){
+            console.log($(this).attr('element'),$(this).parent().parent().parent().parent().attr('module'), 0, null, null);
+            transferElement($(this).attr('element'),$(this).parent().parent().parent().attr('module'), 0, null, null);
+        });
+
+        $('.removeButton').hover(function(){
+            TweenLite.to($(this),0.5,{scaleX: 1.3, scaleY : 1.3});
+        }, function(){
+            TweenLite.to($(this),0.3,{scaleX: 1, scaleY : 1});
+
+        })
+
+        $('.selectElement').hover(function(){
+            TweenLite.to($(this),0.1,{scaleX: 1.3, scaleY : 1.3});
+        }, function(){
+            TweenLite.to($(this),0.5,{scaleX: 1, scaleY : 1});
+        });
+
         $('.selectElement').click(function(e){
             var checked = this.checked;
 
@@ -252,6 +272,7 @@ $(document).ready(function(){
             if(checked){
                 //placeElementInSelectedModule(element);
                 tempElementStore.push(element);
+                if(!pickModeOn)
                 activatePlaceholderLinesForModules($('.module').not(getModule(0)));
                 pickModeOn = true;
 
@@ -265,6 +286,8 @@ $(document).ready(function(){
 
                 }
             }
+
+
 
             showGlobalPickButton(tempElementStore.length);
 
@@ -317,26 +340,39 @@ $(document).ready(function(){
 
     }
 
-    function transferElement(elementNo, from, to, callback){
+    function transferElement(elementNo, from, to, placeholder, callback){
         var from = getModule(from);
         var to = getModule(to);
 
         var element = getElement(elementNo);
 
+        TweenLite.set(element, {marginTop : 10});
+
         var scrollTop = $(window).scrollTop();
 
         var elementCopy = element.clone();
 
-        to.find('.elements').prepend(elementCopy);
+        if(placeholder != null) {
+            placeholder.append(elementCopy);
+        } else {
+            var elements = to.find('.element');
+
+            elements.each(function(index, element){
+                var offset = $(element).offset().top - $(document).scrollTop();
+                if(offset > 0){
+                    $(element).before(elementCopy);
+                    return false;
+                }
+            });
+        }
 
         elementCopy.css('opacity',0);
 
-        var destination = elementCopy.offset();
+
         var origin = element.offset();
 
         console.log("DESTINATION", destination, "ORIGIN", origin);
         TweenLite.set(element, {position : 'fixed', margin : 0, left : origin.left, top : origin.top - scrollTop});
-
 
         var nextElement = element.next();
 
@@ -344,11 +380,11 @@ $(document).ready(function(){
 
         $('body').append(element);
 
+        var destination = elementCopy.offset();
 
         TweenLite.set(nextElement, {marginTop : element.css('height')});
 
-
-        TweenLite.to(element, 0.6, {left : destination.left, top : destination.top - scrollTop, onComplete: function(){
+        TweenLite.to(element, 0.6, {left : destination.left - 10, top : destination.top - scrollTop - 20, onComplete: function(){
 
             TweenLite.to(elementCopy, 0.5, {opacity : 1});
 
@@ -406,23 +442,32 @@ $(document).ready(function(){
     function activatePlaceholderLines(moduleId){
 
         var placeholder = $(placeholderTemplate);
-
         var module = getModule(moduleId);
+        var oldPlaceholders = module.find('.placeholder');
         var elements = module.find('.element');
+        var placeholder = $(placeholderTemplate);
+        placeholder.css('opacity',0);
+        attachClickListenerToPlaceholder(placeholder);
+        placeholder.attr('module',moduleId);
         if(elements.length == 0){
-            var placeholder = $(placeholderTemplate);
-            attachClickListenerToPlaceholder(placeholder);
+            module.find('.elements').append(placeholder);
+        } else {
             module.find('.elements').prepend(placeholder);
         }
-
+        oldPlaceholders.remove();
 
         module.find('.element').each(function(index, element){
             //placeholder = $(placeholderTemplate).attr(moduleId);
             var placeholder = $(placeholderTemplate);
             attachClickListenerToPlaceholder(placeholder);
+            placeholder.attr('module',moduleId);
             $(element).after(placeholder);
 
         });
+
+        var newPlaceholders = module.find('.placeholder');
+        //newPlaceholders.css('opacity', 1);
+        TweenLite.to(newPlaceholders, 1, {'opacity':1,scaleX:1,scaleY:1,ease: "Bounce.easeOut"});
 
     }
 
@@ -437,19 +482,32 @@ $(document).ready(function(){
 
     function attachClickListenerToPlaceholder(placeholder){
         $(placeholder).click(function(){
-            $(this).replaceWith(getTempElementStore());
+            transferElementStoreTo(placeholder);
             deactivatePlaceholderLinesForModules($('.module').not(getModule(0)));
+            pickModeOn = false;
             untickCheckboxes();
         });
     }
 
     function deactivatePlaceholderLines(moduleId){
         var module = getModule(moduleId);
-
         var elements = module.find('.element');
+        var thePlaceholder = module.find('.placeholder');
 
-        module.find('.placeholder').remove();
+        thePlaceholder.each(function(i,placeholder){
+            pHolder = $(placeholder);
+            console.log("LENGTH",pHolder.find('.element').length);
+            if(pHolder.find('.element').length >= 1){
+                var theChildren = pHolder.find('.element');
+                console.log("PHOLDER", pHolder);
+                pHolder.replaceWith(theChildren);
 
+            } else {
+                pHolder.css('opacity',0);
+                pHolder.css('width',0);
+
+            }
+        })
 
     }
 
@@ -466,6 +524,20 @@ $(document).ready(function(){
             var moduleId = $(element).attr('module');
             deactivatePlaceholderLines(moduleId);
         });
+    }
+
+    function transferElementStoreTo(placeholder){
+
+        console.log("GETTING TEMP ELEMENT STORE")
+        var elStore = getTempElementStore();
+
+        console.log(elStore);
+        elStore.forEach(function(e,i){
+            console.log(e, $(e).parent().parent().parent().attr('module'), $(placeholder).attr('module'));
+            transferElement(e.attr('element'), $(e).parent().parent().parent().attr('module'), $(placeholder).attr('module'), $(placeholder), null );
+        });
+
+
     }
 
 
