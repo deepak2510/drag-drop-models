@@ -107,6 +107,9 @@ body{
     max-width : 320px;
 }
 
+.right .elements{
+    margin-top: 10px;
+}
 
 .element{
     border : 1px solid #ccc;

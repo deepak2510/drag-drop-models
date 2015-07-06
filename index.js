@@ -232,7 +232,7 @@ $(document).ready(function(){
     $('.module').not(getModule(0)).hover(function(){
         //TweenLite.to($(this),0.1,{scaleX : 1.01, scaleY:1.01});
         if(pickModeOn)
-        TweenLite.to($(this).find('.placeholder'), 0.4, {scaleX : 1.2, scaleY : 1.2, marginTop:10,  ease: "Bounce.easeOut"})
+        TweenLite.to($(this).find('.placeholder'), 0.4, {scaleX : 1.2, scaleY : 1.2})
 
     }, function(){
         //TweenLite.to($(this),0.2,{scaleX : 1, scaleY:1});
