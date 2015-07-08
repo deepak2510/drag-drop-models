@@ -54,7 +54,13 @@ body{
 
 .left .elements .removeButton{
     display : none;
+    cursor: pointer;
 }
+
+.selectElement{
+    cursor: pointer;
+}
+
 
 .removeButton{
     width : 14px;
@@ -64,6 +70,7 @@ body{
     border-radius: 10px;
     background-color: indianred;
     padding-left : 4px;
+    cursor : pointer;
 }
 
 .removeButton:hover{
