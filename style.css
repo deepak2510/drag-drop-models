@@ -14,7 +14,7 @@ body{
 .left{
     position : fixed;
     left : 0px;
-    top : 0px;
+    top : 35px;
     background-color: #eee;
     min-width : 320px;
     height : 100%;
@@ -28,7 +28,7 @@ body{
     background-color: #0A2B5F;
     color: #fff;
     padding: 8px;
-    top: 0px;
+    top: 35px;
     width: 320px;
     z-index: 5001;
     border-bottom: 1px solid #666;
@@ -78,7 +78,7 @@ body{
     padding : 10px;
     position : relative;
     left : 330px;
-    top : 0px;
+    top : 20px;
 
 
 }
@@ -145,7 +145,6 @@ body{
     color : #fff;
     font-family: 'Helvetica';
     font-size : 12px;
-    cursor: pointer;
 }
 
 .helper-text {
@@ -250,10 +249,17 @@ body{
 }
 
 .pick-control{
+    background-color:#999;
+    width : 751px;
+    text-align:center;
+    padding : 5px;
     color : #fff;
     font-size : 14px;
     display : none;
-    margin-top: 5px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 6000;
 }
 
 .module:hover .module-controls{

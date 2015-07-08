@@ -44,7 +44,8 @@
     <li class="element" element="{{id}}">
 
         <div class="controls">
-            <input type="checkbox" class="selectElement" element="{{id}}" id="{{id}}"/> <label for="{{id}}" class="helper-text"> Select element </label>
+            <input type="checkbox" class="selectElement" element="{{id}}" id="{{id}}"/>
+            <!--<label for="{{id}}" class="helper-text"> Select element </label>-->
             <div class="pull-right removeButton" value="Remove" element="{{id}}">x</div>
         </div>
 
@@ -65,9 +66,12 @@
 
 <body>
 
+<div class="notification">
+    <span class="pick-control pull-right">Pick</span>
+</div>
+
 <div class="leftHeader">
     <span class="heading"> Contents</span>
-    <span class="pick-control pull-right">Pick</span>
 </div>
 
 <div class="left module" module="0">

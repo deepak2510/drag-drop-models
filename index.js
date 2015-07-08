@@ -430,8 +430,10 @@ $(document).ready(function(){
     function manageGlobalPickButton(howMany){
         var pickControl = $('.pick-control');
         pickControl.show();
-        TweenLite.to(pickControl,0,{scaleX : 0.8, scaleY : 0.9});
-        TweenLite.to(pickControl, 0.8, {scaleX : 1, scaleY : 1, ease: "Bounce.easeOut"});
+
+        TweenLite.to(pickControl, 0.2, {backgroundColor : '#777', ease: "Bounce.easeOut", onComplete : function(){
+            TweenLite.to(pickControl, 0.2,{backgroundColor : '#999'});
+        }});
 
         if(howMany <= 0) {
             howMany = ""
